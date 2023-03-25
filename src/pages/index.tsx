@@ -7,6 +7,7 @@ import type { RouterOutputs } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
+import { LoadingPage, LoadingSpinner } from "~/components/loading";
 
 dayjs.extend(relativeTime);
 
@@ -53,19 +54,35 @@ const PostView = (props: PostWithUser) => {
             post.createdAt
           ).fromNow()}`}</span>
         </div>
-        <span>{post.content}</span>
+        <span className="text-xl">{post.content}</span>
       </div>
     </div>
   );
 };
 
+const Feed = () => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+
+  if (postsLoading) return <LoadingPage />;
+
+  if (!data) return <div>Something went wrong</div>;
+
+  return (
+    <div>
+      {data?.map((fullPost) => {
+        return <PostView {...fullPost} key={fullPost.post.id} />;
+      })}
+    </div>
+  );
+};
+
 const Home: NextPage = () => {
-  const user = useUser();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
 
-  const { data, isLoading } = api.posts.getAll.useQuery();
+  // start fetching asap
+  api.posts.getAll.useQuery;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>something went wrong</div>;
+  if (!userLoaded) return <div />;
 
   return (
     <>
@@ -77,19 +94,14 @@ const Home: NextPage = () => {
       <main className="flex justify-center">
         <div className="h-screen w-full border-x border-slate-600 md:max-w-2xl">
           <div className="border-b border-slate-600 p-4">
-            {!user.isSignedIn && (
+            {!isSignedIn && (
               <div>
                 <SignInButton />
               </div>
             )}
-            {!!user.isSignedIn && <CreatePostWizard />}
+            {!!isSignedIn && <CreatePostWizard />}
           </div>
-
-          <div>
-            {data?.map((fullPost) => {
-              return <PostView {...fullPost} key={fullPost.post.id} />;
-            })}
-          </div>
+          <Feed />
         </div>
       </main>
     </>
