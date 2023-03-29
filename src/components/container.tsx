@@ -15,7 +15,7 @@ const Container: React.FC<ContainerProps> = ({
   return (
     <Element
       {...rest}
-      className={cn('w-full md:m-auto md:max-w-2xl', className)}
+      className={cn('w-full md:mx-auto md:max-w-2xl', className)}
     >
       {children}
     </Element>

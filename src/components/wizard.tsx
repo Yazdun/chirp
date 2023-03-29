@@ -32,7 +32,7 @@ export const CreatePostWizard = () => {
   if (!user) return null
 
   return (
-    <Container className="flex gap-3 p-4">
+    <Container className="mb-4 flex gap-3 rounded-lg border-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white">
       <Image
         src={user.profileImageUrl}
         alt="Profile Image"
