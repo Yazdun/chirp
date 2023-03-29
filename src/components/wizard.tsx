@@ -32,42 +32,47 @@ export const CreatePostWizard = () => {
   if (!user) return null
 
   return (
-    <Container className="mb-4 flex gap-3 rounded-lg border-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white">
-      <Image
-        src={user.profileImageUrl}
-        alt="Profile Image"
-        className="rounded-full"
-        height={56}
-        width={56}
-      />
-      <input
-        type="text"
-        placeholder="type some emojis!"
-        className="grow bg-transparent outline-none"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        disabled={isPosting}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            e.preventDefault()
-            if (input !== '') {
-              mutate({ content: input })
+    <div className="fixed left-0 right-0 bottom-0 z-50 bg-light-100 dark:bg-black md:static md:mb-4">
+      <Container className="flex gap-3 border-t-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white md:rounded-lg md:border-2">
+        <Image
+          src={user.profileImageUrl}
+          alt="Profile Image"
+          className="rounded-full"
+          height={56}
+          width={56}
+        />
+        <input
+          type="text"
+          placeholder="type some emojis!"
+          className="grow bg-transparent outline-none"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          disabled={isPosting}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              if (input !== '') {
+                mutate({ content: input })
+              }
             }
-          }
-        }}
-      />
+          }}
+        />
 
-      {isPosting && (
-        <div className="flex items-center justify-center">
-          <LoadingSpinner size={20} />
-        </div>
-      )}
+        {isPosting && (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner size={20} />
+          </div>
+        )}
 
-      {input !== '' && (
-        <button onClick={() => mutate({ content: input })} disabled={isPosting}>
-          Post
-        </button>
-      )}
-    </Container>
+        {input !== '' && (
+          <button
+            onClick={() => mutate({ content: input })}
+            disabled={isPosting}
+          >
+            Post
+          </button>
+        )}
+      </Container>
+    </div>
   )
 }
