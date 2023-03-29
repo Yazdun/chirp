@@ -34,14 +34,7 @@ const Home: NextPage = () => {
 
   return (
     <PageLayout>
-      <div>
-        {!isSignedIn && (
-          <div>
-            <SignInButton />
-          </div>
-        )}
-        {!!isSignedIn && <CreatePostWizard />}
-      </div>
+      <div>{!!isSignedIn && <CreatePostWizard />}</div>
       <Feed />
     </PageLayout>
   )
