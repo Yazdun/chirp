@@ -4,8 +4,8 @@ import Container from './container'
 import { ThemeToggle } from './theme'
 import { IoMdPower } from 'react-icons/io'
 import Image from 'next/image'
-import LIGHT_LOGO from '~/assets/light.svg'
 import { useTheme } from 'next-themes'
+import { BsGithub } from 'react-icons/bs'
 
 export const Navigation = () => {
   const { theme } = useTheme()
@@ -22,7 +22,8 @@ export const Navigation = () => {
         <div className="flex gap-2">
           {!isSignedIn ? (
             <SignInButton>
-              <button className="flex items-center gap-1 rounded-lg  bg-blue-600 px-4 py-2 font-semibold text-white transition-colors md:hover:bg-blue-700">
+              <button className="flex  items-center gap-2 rounded-lg  bg-blue-600 px-4 py-2 font-semibold text-white transition-colors md:hover:bg-blue-700">
+                <BsGithub className="mt-[0.07rem" />
                 Sign In
               </button>
             </SignInButton>
