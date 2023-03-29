@@ -1,11 +1,13 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react'
+import { Navigation } from './navigation'
 
 export const PageLayout = (props: PropsWithChildren) => {
   return (
-    <main className="overflow-none flex h-screen justify-center">
-      <div className="flex h-full w-full flex-col overflow-y-scroll border-x border-slate-600 md:max-w-2xl">
+    <main>
+      <Navigation />
+      <div className="flex h-full w-full flex-col md:m-auto md:max-w-2xl">
         {props.children}
       </div>
     </main>
-  );
-};
+  )
+}
