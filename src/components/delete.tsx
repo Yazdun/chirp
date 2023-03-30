@@ -61,7 +61,12 @@ export const Delete = (props: PostWithUser) => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)}>delete</button>
+      <button
+        onClick={() => setOpen(true)}
+        className="rounded-lg bg-red-200 p-1 text-red-600 dark:bg-orange-900 dark:text-red-300"
+      >
+        <RiDeleteBin7Line />
+      </button>
       <AnimatePresence initial={false} mode="wait">
         {open && (
           <motion.div

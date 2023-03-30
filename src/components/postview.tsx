@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-
+import { FaRetweet } from 'react-icons/fa'
 import { Delete } from './delete'
 import { useUser } from '@clerk/nextjs'
 dayjs.extend(relativeTime)
@@ -15,28 +15,35 @@ export const PostView = (props: PostWithUser) => {
   const { user } = useUser()
 
   return (
-    <div className="flex gap-3 p-4 shadow-sm dark:bg-gray-900 dark:shadow-none md:rounded-lg">
-      <Image
-        src={author.profileImageUrl}
-        alt={`@${author.username}`}
-        className="h-14 w-14 rounded-full"
-        height={56}
-        width={56}
-      />
-      <div className="flex flex-col ">
-        <div className="flex gap-2 dark:text-slate-300">
-          <Link href={`/@${author.username}`} className="font-bold">
-            <span>{`@${author.username}`}</span>{' '}
-          </Link>
-          <Link href={`/post/${post.id}`}>
-            <span className="text-slate-600 dark:text-slate-400">{`· ${dayjs(
-              post.createdAt,
-            ).fromNow()}`}</span>
-          </Link>
+    <div className="flex items-start justify-between p-4 shadow-sm dark:bg-gray-900 dark:shadow-none md:rounded-lg">
+      <div className="flex gap-3">
+        <Image
+          src={author.profileImageUrl}
+          alt={`@${author.username}`}
+          className="h-14 w-14 rounded-full"
+          height={56}
+          width={56}
+        />
+        <div className="flex flex-col ">
+          <div className="flex gap-2 dark:text-slate-300">
+            <Link href={`/@${author.username}`} className="font-bold">
+              <span>{`@${author.username}`}</span>{' '}
+            </Link>
+            <Link href={`/post/${post.id}`}>
+              <span className="text-slate-600 dark:text-slate-400">{`· ${dayjs(
+                post.createdAt,
+              ).fromNow()}`}</span>
+            </Link>
+          </div>
+          <span className="text-xl">{post.content}</span>
         </div>
-        <span className="text-xl">{post.content}</span>
       </div>
-      {author.id === user?.id && <Delete {...props} />}
+      <div className="flex gap-1">
+        <button className="rounded-lg bg-blue-100 p-1 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
+          <FaRetweet />
+        </button>
+        {author.id === user?.id && <Delete {...props} />}
+      </div>
     </div>
   )
 }
