@@ -70,7 +70,7 @@ export const Delete = (props: PostWithUser) => {
           >
             <motion.div
               {...framer_modal}
-              className="relative z-50 w-full rounded-md bg-light-100 p-5 shadow-sm dark:bg-gray-700 dark:shadow-lg md:max-w-xl"
+              className="relative z-50 w-full rounded-md bg-light-100 p-5 shadow-sm dark:bg-gradient-to-tl dark:from-gray-700 dark:to-gray-800 dark:shadow-lg md:max-w-xl"
               ref={ref}
             >
               <button
