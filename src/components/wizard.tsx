@@ -1,10 +1,19 @@
 import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
-import { LoadingSpinner } from '~/components/loading'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { api } from '~/utils/api'
 import Container from '~/components/container'
+import { GrSend } from 'react-icons/gr'
+import { AnimatePresence, motion } from 'framer-motion'
+import cn from 'classnames'
+
+const framer_button = {
+  initial: { scale: 0, opacity: 0 },
+  animate: { scale: 1, opacity: 1 },
+  exit: { scale: 0, opacity: 0 },
+  transition: { duration: 0.3 },
+}
 
 export const CreatePostWizard = () => {
   const { user } = useUser()
@@ -16,6 +25,7 @@ export const CreatePostWizard = () => {
     onSuccess: () => {
       setInput('')
       void ctx.posts.getAll.invalidate()
+      toast.success("You've successfully chirped!")
     },
 
     onError: e => {
@@ -33,7 +43,7 @@ export const CreatePostWizard = () => {
 
   return (
     <div className="fixed left-0 right-0 bottom-0 z-50 bg-light-100 dark:bg-black md:static md:mb-4">
-      <Container className="flex gap-3 border-t-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white md:rounded-lg md:border-2">
+      <Container className="flex items-center gap-3 border-t-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white md:rounded-lg md:border-2">
         <Image
           src={user.profileImageUrl}
           alt="Profile Image"
@@ -58,20 +68,21 @@ export const CreatePostWizard = () => {
           }}
         />
 
-        {isPosting && (
-          <div className="flex items-center justify-center">
-            <LoadingSpinner size={20} />
-          </div>
-        )}
-
-        {input !== '' && (
-          <button
-            onClick={() => mutate({ content: input })}
-            disabled={isPosting}
-          >
-            Post
-          </button>
-        )}
+        <AnimatePresence initial={false} mode="wait">
+          {input !== '' && (
+            <motion.button
+              {...framer_button}
+              className={cn(
+                'flex items-center justify-center rounded-full bg-green-400 p-4',
+                isPosting && 'animate-pulse',
+              )}
+              onClick={() => mutate({ content: input })}
+              disabled={isPosting}
+            >
+              <GrSend />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </Container>
     </div>
   )
