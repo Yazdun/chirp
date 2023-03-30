@@ -38,12 +38,14 @@ export const PostView = (props: PostWithUser) => {
           <span className="text-xl">{post.content}</span>
         </div>
       </div>
-      <div className="flex gap-1">
-        <button className="rounded-lg bg-blue-100 p-1 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
-          <FaRetweet />
-        </button>
-        {author.id === user?.id && <Delete {...props} />}
-      </div>
+      {user && (
+        <div className="flex gap-1">
+          <button className="rounded-lg bg-blue-100 p-1 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
+            <FaRetweet />
+          </button>
+          {author.id === user?.id && <Delete {...props} />}
+        </div>
+      )}
     </div>
   )
 }
