@@ -43,7 +43,7 @@ export const CreatePostWizard = () => {
         />
         <input
           type="text"
-          placeholder="type some emojis!"
+          placeholder="start chirping..."
           className="grow bg-transparent outline-none"
           value={input}
           onChange={e => setInput(e.target.value)}

@@ -6,6 +6,7 @@ import { IoMdPower } from 'react-icons/io'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { BsGithub } from 'react-icons/bs'
+import LOGO from '/dark.svg'
 
 export const Navigation = () => {
   const { theme } = useTheme()
@@ -14,7 +15,7 @@ export const Navigation = () => {
     <div className="p-4">
       <Container as="nav" className="flex items-center justify-between">
         <Image
-          src={theme === 'dark' ? '/dark.svg' : '/light.svg'}
+          src={theme === 'dark' ? '/logo.svg' : '/logo.svg'}
           width={100}
           height={100}
           alt="chirp+"

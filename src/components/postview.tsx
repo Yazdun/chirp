@@ -1,34 +1,18 @@
-import { api, RouterOutputs } from '~/utils/api'
+import type { RouterOutputs } from '~/utils/api'
 import Image from 'next/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { toast } from 'react-hot-toast'
+
+import { Delete } from './delete'
 import { useUser } from '@clerk/nextjs'
 dayjs.extend(relativeTime)
 
 type PostWithUser = RouterOutputs['posts']['getAll'][number]
 export const PostView = (props: PostWithUser) => {
   const { post, author } = props
+
   const { user } = useUser()
-
-  const ctx = api.useContext()
-
-  const { mutate, isLoading } = api.posts.delete.useMutation({
-    onSuccess: () => {
-      void ctx.posts.getAll.invalidate()
-    },
-
-    onError: e => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content
-
-      if (errorMessage && errorMessage[0]) {
-        toast.error(errorMessage[0])
-      } else {
-        toast.error('Failed to delete! Please try again later.')
-      }
-    },
-  })
 
   return (
     <div className="flex gap-3 p-4 shadow-sm dark:bg-gray-900 dark:shadow-none md:rounded-lg">
@@ -52,9 +36,7 @@ export const PostView = (props: PostWithUser) => {
         </div>
         <span className="text-xl">{post.content}</span>
       </div>
-      {author.id === user?.id && (
-        <button onClick={() => mutate({ postId: post.id })}>delete</button>
-      )}
+      {author.id === user?.id && <Delete {...props} />}
     </div>
   )
 }
