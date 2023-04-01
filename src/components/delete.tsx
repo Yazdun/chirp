@@ -63,7 +63,7 @@ export const Delete = (props: PostWithUser) => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="rounded-lg bg-red-200 p-1 text-red-600 dark:bg-orange-900 dark:text-red-300"
+        className="rounded-lg bg-red-200 p-1 text-red-600 dark:bg-red-900 dark:text-red-300"
       >
         <RiDeleteBin7Line />
       </button>

@@ -1,15 +1,16 @@
-import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
-import { api } from "~/utils/api";
-import { PageLayout } from "~/components/layout";
-import { PostView } from "~/components/postview";
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import type { GetStaticProps, NextPage } from 'next'
+import Head from 'next/head'
+import { api } from '~/utils/api'
+import { PageLayout } from '~/components/layout'
+import { PostView } from '~/components/postview'
+import { generateSSGHelper } from '~/server/helpers/ssgHelper'
+import Container from '~/components/container'
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
   const { data } = api.posts.getById.useQuery({
     id,
-  });
-  if (!data) return <div>404</div>;
+  })
+  if (!data) return <div>404</div>
 
   return (
     <>
@@ -17,31 +18,33 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
         <title>{`${data.post.content} - @${data.author.username}`}</title>
       </Head>
       <PageLayout>
-        <PostView {...data} />
+        <Container>
+          <PostView {...data} />
+        </Container>
       </PageLayout>
     </>
-  );
-};
+  )
+}
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const ssg = generateSSGHelper();
+export const getStaticProps: GetStaticProps = async context => {
+  const ssg = generateSSGHelper()
 
-  const id = context.params?.id;
+  const id = context.params?.id
 
-  if (typeof id !== "string") throw new Error("no id");
+  if (typeof id !== 'string') throw new Error('no id')
 
-  await ssg.posts.getById.prefetch({ id });
+  await ssg.posts.getById.prefetch({ id })
 
   return {
     props: {
       trpcState: ssg.dehydrate(),
       id,
     },
-  };
-};
+  }
+}
 
 export const getStaticPaths = () => {
-  return { paths: [], fallback: "blocking" };
-};
+  return { paths: [], fallback: 'blocking' }
+}
 
-export default SinglePostPage;
+export default SinglePostPage

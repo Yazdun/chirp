@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { FaRetweet } from 'react-icons/fa'
 import { Delete } from './delete'
 import { useUser } from '@clerk/nextjs'
 dayjs.extend(relativeTime)
@@ -40,9 +39,6 @@ export const PostView = (props: PostWithUser) => {
       </div>
       {user && (
         <div className="flex gap-1">
-          <button className="rounded-lg bg-blue-100 p-1 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
-            <FaRetweet />
-          </button>
           {author.id === user?.id && <Delete {...props} />}
         </div>
       )}

@@ -6,20 +6,25 @@ import { IoMdPower } from 'react-icons/io'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { BsGithub } from 'react-icons/bs'
-import LOGO from '/dark.svg'
+import Link from 'next/link'
 
 export const Navigation = () => {
   const { theme } = useTheme()
   const { isSignedIn } = useUser()
   return (
     <div className="p-4">
-      <Container as="nav" className="flex items-center justify-between">
-        <Image
-          src={theme === 'dark' ? '/logo.svg' : '/logo.svg'}
-          width={100}
-          height={100}
-          alt="chirp+"
-        />
+      <Container
+        as="nav"
+        className="flex min-h-[2.8rem] items-center justify-between"
+      >
+        <Link href="/">
+          <Image
+            src={theme === 'dark' ? '/logo.svg' : '/logo.svg'}
+            width={80}
+            height={100}
+            alt="chirp+"
+          />
+        </Link>
         <div className="flex gap-2">
           {!isSignedIn ? (
             <SignInButton>
