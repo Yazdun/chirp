@@ -15,7 +15,7 @@ export const Navigation = () => {
     <div className="p-4">
       <Container
         as="nav"
-        className="flex min-h-[2.8rem] items-center justify-between"
+        className="flex h-[2.8rem] items-center justify-between"
       >
         <Link href="/">
           <Image

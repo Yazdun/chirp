@@ -1,19 +1,27 @@
 import { useUser } from '@clerk/nextjs'
 import { type NextPage } from 'next'
-import { SignInButton } from '@clerk/nextjs'
 import { LoadingPage } from '~/components/loading'
 import { PageLayout } from '~/components/layout'
 import { PostView } from '~/components/postview'
 import { api } from '~/utils/api'
 import Container from '~/components/container'
 import { CreatePostWizard } from '~/components/wizard'
+import { BiMessageAltError } from 'react-icons/bi'
 
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery()
 
   if (postsLoading) return <LoadingPage />
 
-  if (!data) return <div>Something went wrong</div>
+  if (!data)
+    return (
+      <Container>
+        <div className="mt-10 flex flex-col items-center gap-2 p-0 text-lg font-bold">
+          <BiMessageAltError className="text-6xl " />
+          Something went wrong
+        </div>
+      </Container>
+    )
 
   return (
     <Container className="flex flex-col gap-4 p-0">
