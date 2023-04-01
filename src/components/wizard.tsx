@@ -17,6 +17,7 @@ const framer_button = {
 export const CreatePostWizard = () => {
   const { user } = useUser()
   const [input, setInput] = useState('')
+  const [imageLoading, setImageLoading] = useState<boolean>(true)
 
   const ctx = api.useContext()
 
@@ -43,13 +44,22 @@ export const CreatePostWizard = () => {
   return (
     <div className="fixed left-0 right-0 bottom-0 z-50 bg-light-100 dark:bg-black md:static md:mb-4">
       <Container className="flex items-center gap-3 border-t-2 p-4 transition-all focus-within:border-black dark:border-slate-700 dark:focus-within:border-white md:rounded-lg md:border-2">
-        <Image
-          src={user.profileImageUrl}
-          alt="Profile Image"
-          className="rounded-full"
-          height={56}
-          width={56}
-        />
+        <div
+          className={cn(
+            'h-14 min-w-[56px] rounded-full bg-slate-200 dark:bg-slate-700',
+            imageLoading && 'animate-pulse',
+          )}
+        >
+          <Image
+            src={user.profileImageUrl}
+            alt="Profile Image"
+            className="rounded-full"
+            height={56}
+            width={56}
+            onLoad={() => setImageLoading(false)}
+          />
+        </div>
+
         <input
           type="text"
           placeholder="start chirping..."

@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { PostView } from '~/components/postview'
 import { LoadingPage } from '~/components/loading'
 import Container from '~/components/container'
+import { useState } from 'react'
+import cn from 'classnames'
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
@@ -30,6 +32,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data } = api.profile.getUserByUsername.useQuery({
     username,
   })
+  const [imageLoading, setImageLoading] = useState<boolean>(true)
 
   if (!data) return <div>404</div>
 
@@ -48,13 +51,21 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
               height={100}
               className="absolute left-[8rem] top-10 ml-4"
             />
-            <Image
-              src={data.profileImageUrl}
-              alt={`${data.username ?? ''}'s profile pic`}
-              width={128}
-              height={128}
-              className="absolute bottom-0 left-0 -mb-[64px] ml-4 rounded-full border-4 border-light-100 bg-light-100 dark:border-black dark:bg-black"
-            />
+            <div
+              className={cn(
+                'absolute bottom-0 left-0 -mb-[64px] ml-4 h-[128px] min-w-[128px]  rounded-full bg-slate-200 dark:bg-slate-700',
+                imageLoading && 'animate-pulse',
+              )}
+            >
+              <Image
+                src={data.profileImageUrl}
+                alt={`${data.username ?? ''}'s profile pic`}
+                width={128}
+                height={128}
+                className="rounded-full border-4 border-light-100 bg-light-100 dark:border-black dark:bg-black"
+                onLoad={() => setImageLoading(false)}
+              />
+            </div>
           </div>
           <div className="ml-[8rem] p-4 text-2xl font-bold">{`@${
             data.username ?? ''
