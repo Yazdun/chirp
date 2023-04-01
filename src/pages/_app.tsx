@@ -16,6 +16,17 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <title>Chirp</title>
           <meta name="description" content="💭" />
           <link rel="icon" href="/favicon.ico" />
+          <meta
+            property="og:image"
+            content="http://chirp-plus.vercel.app/api/static"
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Chirp" />
+          <meta name="twitter:description" content="💭" />
+          <meta
+            name="twitter:image"
+            content="http://chirp-plus.vercel.app/api/static"
+          />
         </Head>
         <Toaster position="bottom-center" />
         <Component {...pageProps} />
