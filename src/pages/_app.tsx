@@ -18,7 +18,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <link rel="icon" href="/favicon.ico" />
           <meta
             property="og:image"
-            content="http://chirp-plus.vercel.app/api/static"
+            content="http://chirp-plus.vercel.app/api/og"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Chirp" />
