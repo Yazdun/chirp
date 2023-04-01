@@ -26,6 +26,11 @@ export const CreatePostWizard = () => {
       setInput('')
       void ctx.posts.getAll.invalidate()
       toast.success("You've successfully chirped!")
+      document.documentElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
     },
 
     onError: e => {
