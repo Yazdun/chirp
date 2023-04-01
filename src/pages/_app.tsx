@@ -25,7 +25,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <meta name="twitter:description" content="💭" />
           <meta
             name="twitter:image"
-            content="http://chirp-plus.vercel.app/api/static"
+            content="http://chirp-plus.vercel.app/api/og"
           />
         </Head>
         <Toaster position="bottom-center" />
