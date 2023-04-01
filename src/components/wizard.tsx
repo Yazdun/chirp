@@ -53,7 +53,7 @@ export const CreatePostWizard = () => {
         <input
           type="text"
           placeholder="start chirping..."
-          className="grow bg-transparent outline-none"
+          className="w-full bg-transparent outline-none"
           value={input}
           onChange={e => setInput(e.target.value)}
           disabled={isPosting}
@@ -72,7 +72,7 @@ export const CreatePostWizard = () => {
             <motion.button
               {...framer_button}
               className={cn(
-                'flex items-center justify-center rounded-full bg-green-400 p-4',
+                'flex h-[3rem] min-w-[3rem] items-center justify-center rounded-full bg-green-400',
                 isPosting && 'animate-pulse',
               )}
               onClick={() => mutate({ content: input })}
