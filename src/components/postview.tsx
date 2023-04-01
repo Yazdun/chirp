@@ -34,7 +34,9 @@ export const PostView = (props: PostWithUser) => {
               ).fromNow()}`}</span>
             </Link>
           </div>
-          <span className="text-xl">{post.content}</span>
+          <Link href={`/post/${post.id}`} className="text-xl">
+            {post.content}
+          </Link>
         </div>
       </div>
       {user && (
